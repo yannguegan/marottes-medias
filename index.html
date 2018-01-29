@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Les marottes des médias</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chosen-js@1.8.2/chosen.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+        <link rel="stylesheet" href="css/main.css" />
+        <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.2.1,npm/chosen-js@1.8.2,npm/handlebars@4.0.11/dist/handlebars.min.js,npm/elasticlunr@0.9.5"></script>
+        <script src="https://use.fontawesome.com/4a7caceb05.js"></script>
+        <script src="js/lunr.stemmer.support.js"></script>
+        <script src="js/lunr.fr.js"></script>
+        <script src="js/base.js"></script>
+        <script src="js/custom.js"></script>
+	    <script src="js/iframeResizer.contentWindow.min.js"></script> 
+    </head>
+    <body>
+        <div class="dml-Main">
+            <div class="dml-Tabs">
+                <div class="dml-Tabs-tab dml-js-Tab" data-section="entities">
+                    Les thèmes
+                </div>
+                <div class="dml-Tabs-tab dml-js-Tab" data-section="media">
+                    Les médias
+                </div>
+            </div>
+            <div class="dml-Timespans">
+                <div class="dml-Timespan dml-js-Timespan dml--hidden" data-timespan="7days">
+                    <div class="dml-Sections">
+                        <div class="dml-Section dml-js-Section dml--hidden" data-section="entities">
+                            <div class="dml-Entities dml-js-Entities"></div>
+                        </div>
+                        <div class="dml-Section dml-js-Section dml--hidden" data-section="media">
+                            <div class="dml-Media dml-js-Media"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dml-js-BackToTop dml-js-ToParent dml-BackToTop">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        </div>
+
+        <!-- Entity template -->
+        <script type="text/x-handlebars-template" data-template="entities" data-debug="false" data-target=".dml-js-Entities">
+        {{#each 7days.entities}}
+        <div class="dml-Entity dml-js-Entity" data-entity="{{code}}">
+            <div class="dml-Entity-info dml-js-Accordion dml-Accordion dml-Accordion--closed">
+                <div class="dml-Entity-name">{{name}}</div>
+                <div class="dml-Entity-details">
+                    <div class="dml-Entity-mediaCount">{{mediaCount}}</div>
+                </div>
+            </div>
+            <div class="dml-Entity-media dml-Accordion-content dml-Accordion-content--closed">
+                <div class="dml-SectionHeaders dml-js-SectionHeaders">
+                    <div class="dml-SectionHeader" data-header="name">
+                        Média
+                     </div>
+                    <div class="dml-SectionHeader" data-header="average">
+                         Ecart à la moyenne
+                    </div>
+                    <div class="dml-SectionHeader" data-header="scores">
+                        <div class="dml-SectionHeaderName">Présence</div>
+                        <div class="dml-SectionHeaderCurrent">Depuis 7 jours</div>
+                        <div class="dml-SectionHeaderPrevious">Période précédente</div>                              
+                    </div>
+                </div>
+                <div class="dml-Media-list dml-js-EntityMedia">
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        </script>
+
+        <!-- Media in entity template -->
+        <script type="text/x-handlebars-template" data-template="entity_media" data-debug="false" data-target="dom_variable" data-target-variable="$entityMediaList">
+        {{#each media}}
+         <div class="dml-Medium dml-js-EntityMedium dml-Medium--{{spreadAverageType}}" data-score="{{relevance}}" data-diff="{{spreadAverage}}" data-media="{{code}}">
+            <div class="dml-Medium-infos">
+                <div class="dml-Medium-image">
+                    <img class="dml-Medium-logo" src="img/media/{{code}}.ico">
+                </div>
+                <div class="dml-Medium-name">
+                    {{name}}
+                    <a class="dml-Medium-NameSearch" target="_blank" href="{{searchURL}}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="dml-Medium-barContainer">
+                <div class="dml-Medium-bar" style="width: {{spreadAverage}}%"></div>
+            </div> 
+            <div class="dml-Medium-diff">{{spreadAverage}}</div>
+            <div class="dml-Medium-score">{{relevance}}</div>
+            <div class="dml-Medium-scoreBefore">{{previousRelevance}}</div>
+            <div class="dml-Medium-scoreDiff dml-Medium-scoreDiff--{{previousRelevanceEvol}}">{{spreadRelevance}}</div>
+         </div>
+        {{/each}}
+        </script>
+
+        <!-- Media template -->
+        <script type="text/x-handlebars-template" data-template="media" data-debug="false" data-target=".dml-js-Media">
+
+        {{#each media}}
+        <div class="dml-Medium dml-js-Medium" data-medium="{{code}}">
+            <div class="dml-Medium-infos dml-js-Accordion dml-Accordion dml-Accordion--closed">
+                <div class="dml-Medium-image"> 
+                    <img src="img/media/{{code}}.ico">
+                </div>
+                <div class="dml-Medium-name">{{name}}</div>
+                <div class="dml-Medium-details">
+                    <div class="dml-Medium-storyCount">
+                        <div>{{analyse.nbStories}}</div> articles trouvés
+                    </div>
+                    <div class="dml-Medium-lastAnalyse">Dernière analyse&nbsp;: {{analyse.lastAnalyse}}</div>
+                </div>
+            </div>
+            <div class="dml-Medium-entities dml-js-MediumEntities dml-Accordion-content dml-Accordion-content--closed">
+                <div class="dml-Entities-section dml-js-EntitiesSection" data-section="more">
+                    <div class="dml-Entities-sectionTitle">
+                        <span>Obsessions</span><br> Les thèmes plus présents que sur les autres médias
+                    </div>
+                    <div class="dml-SectionHeaders dml-js-SectionHeaders"></div>
+                    <div class="dml-Entities-sectionList dml-js-SectionList">
+                    </div>
+                </div>
+                <div class="dml-Entities-section dml-js-EntitiesSection" data-section="less">
+                    <div class="dml-Entities-sectionTitle">
+                        <span>Sous le radar</span><br> Les thèmes moins présents que sur les autres médias
+                    </div>
+                    <div class="dml-SectionHeaders dml-js-SectionHeaders"></div>
+                    <div class="dml-Entities-sectionList dml-js-SectionList">
+                    </div>
+                </div>
+                <div class="dml-Entities-section dml-js-EntitiesSection" data-section="only">
+                    <div class="dml-Entities-sectionTitle">
+                        <span>Marottes</span><br> Les thèmes très présents seulement dans ce média
+                    </div>
+                    <div class="dml-Entities-sectionList dml-js-SectionList">
+                    </div>
+                </div>
+                <div class="dml-Entities-section dml-js-EntitiesSection" data-section="missing">
+                    <div class="dml-Entities-sectionTitle">
+                        <span>Trous noirs</span><br> Les thèmes très présents ailleurs mais pas dans ce média
+                    </div>
+                    <div class="dml-Entities-sectionList dml-js-SectionList">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        </script>
+
+        <!-- Entities in medium template -->
+        <script type="text/x-handlebars-template" data-template="medium_entities">
+        <div class="dml-Entity dml-js-MediumEntity" data-score="{{relevance}}" data-diff="{{spreadAverage}}" data-entity="{{code}}">
+            <div class="dml-Entity-name">
+                <div>{{name}}</div>
+                <a class="dml-Entity-NameSearch" target="_blank" href="{{searchURL}}">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="dml-Entity-barContainer">
+                <div class="dml-Entity-bar" style="width:{{spreadAverage}}%"></div>
+            </div> 
+            <div class="dml-Entity-diff">{{spreadAverage}}</div>
+            <div class="dml-Entity-score">{{relevance}}</div>
+            <div class="dml-Entity-scoreBefore">{{previousRelevance}}</div>
+            <div class="dml-Entity-scoreDiff dml-Entity-scoreDiff--{{previousRelevanceEvol}}">{{spreadRelevance}}</div>
+        </div>
+        </script>
+
+
+        <style class="dml-js-ToParent">
+            .dml-BackToTop {
+                width: 50px;
+                background-color: white;
+                display: none; 
+                height: 50px;
+                position: fixed;
+                bottom: 50px;
+                right: 10%;
+                padding: 10px 0 0 0;
+                cursor: pointer;
+                box-sizing: border-box;
+                font-weight: bold;
+                text-align: center;
+                border: 1px solid #ddd; 
+                box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                text-align: center;
+                z-index: 1;
+            }
+            .dml-BackToTop:hover i {
+                opacity: 1;
+            }
+            .dml-BackToTop i {
+                display: block;
+                opacity: 0.5; 
+                font-size: 24px;
+            }
+     </style>
+    </body>
+</html>

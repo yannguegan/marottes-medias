@@ -1,0 +1,49 @@
+        <head>
+          <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.2.1"></script>
+            <script src="https://use.fontawesome.com/4a7caceb05.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<script src="js/iframeResizer.min.js"></script>
+<header style="width: 100%; height: 40px; background-color: #ce0005;"></header>
+<div class="dml-Dataviz-container">
+<iframe class="dml-Dataviz-iframe dml-js-Dataviz" frameborder="0" scrolling="no" src="index.html?v=1.1"></iframe>
+</div>
+
+
+<script>
+window.onload = function() {
+  $('.dml-Dataviz-iframe').iFrameResize({
+  	log:false,
+    autoresize: true,
+    initCallback: function() {
+
+    }
+})
+}
+</script>
+
+<style>
+.single-format-gallery #top-share {
+     top: 110px;
+}
+.single-format-gallery .post-navigation {
+    bottom: 0px;
+}
+.dml-Dataviz-container {
+  width: 96%;
+  margin: 50px 2%;
+	clear: both;
+	float: left;
+}
+.dml-Dataviz-iframe {
+     transition: opacity 0.3s linear;
+     opacity: 0;
+      min-width: 100%;
+      width: 100%;
+      margin: 0 auto;
+     max-width: 1000px;
+     display: block;
+}
+
+</style>

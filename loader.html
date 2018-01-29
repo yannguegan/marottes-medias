@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Loader</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<style>
+			.ctx-LoadingScreen {
+			    position: fixed;
+			    top: 0px;
+			    left: 0;
+			    width: 100%;
+			    padding: 30px 0;
+			    z-index: 1000;
+			    background-color: white;
+			    opacity: 1;
+			    transition: opacity 0.5s linear 0.15s, height 0.5s linear;
+			    overflow: hidden;
+			}
+			.ctx-LoadingScreen--hidden {
+				height: 0px;
+				min-height: 0px;
+				opacity: 0;
+			}
+			.ctx-LoadingScreen-Spinner {
+				margin: 0 auto;
+				width: 70px;
+				text-align: center;
+			}
+			.ctx-LoadingScreen-Spinner > div {
+				width: 18px;
+				height: 18px;
+				background-color: #333;
+				border-radius: 100%;
+				display: inline-block;
+				-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+				animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+			}
+			.ctx-LoadingScreen-Spinner .ctx-LoadingScreen-Bounce1 {
+				-webkit-animation-delay: -0.32s;
+				animation-delay: -0.32s;
+			}
+			.ctx-LoadingScreen-Spinner .ctx-LoadingScreen-Bounce2 {
+				-webkit-animation-delay: -0.16s;
+				animation-delay: -0.16s;
+			}
+			@-webkit-keyframes sk-bouncedelay {
+				0%, 80%, 100% { -webkit-transform: scale(0) }
+				40% { -webkit-transform: scale(1.0) }
+			}
+			@keyframes sk-bouncedelay {
+				0%, 80%, 100% {
+					-webkit-transform: scale(0);
+					transform: scale(0);
+					} 40% {
+						-webkit-transform: scale(1.0);
+						transform: scale(1.0);
+					}
+				}
+		</style>
+		<div class="ctx-js-LoadingScreen ctx-LoadingScreen">
+			<div>
+				<div class="ctx-LoadingScreen-Spinner">
+					<div class="ctx-LoadingScreen-Bounce1"></div>
+					<div class="ctx-LoadingScreen-Bounce2"></div>
+					<div class="ctx-LoadingScreen-Bounce3"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
