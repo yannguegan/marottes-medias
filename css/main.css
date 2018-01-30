@@ -212,7 +212,8 @@ p span {
         .dml-Media .dml-Medium .dml-Medium-infos .dml-Medium-image img {
           width: 100%; }
       .dml-Media .dml-Medium .dml-Medium-infos .dml-Medium-details {
-        flex: 0 1 400px;
+        flex: 0 1 200px;
+        margin-left: auto;
         text-align: center;
         text-align: left; }
         .dml-Media .dml-Medium .dml-Medium-infos .dml-Medium-details .dml-Medium-storyCount {
@@ -316,45 +317,41 @@ p span {
     float: right;
     background-color: #f71b43;
     margin-right: 50%; }
-  .dml-Entities-section[data-section="missing"] .dml-Entity-name .dml-Entity-NameSearch {
-    display: none; }
-  .dml-Entities-section[data-section="missing"] .dml-Entity-name div {
-    padding-left: 0; }
-  .dml-Entities-section[data-section="only"] .dml-Entities-sectionTitle, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionTitle {
+  .dml-Entities-section[data-section="only"] .dml-Entities-sectionTitle {
     border-bottom: 1px solid #CCC;
     padding-bottom: 17px; }
-  .dml-Entities-section[data-section="only"] .dml-Entities-sectionList, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList {
+  .dml-Entities-section[data-section="only"] .dml-Entities-sectionList {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    margin: 20px -10px 0;
-    width: calc(100% + 20px);
+    margin: 20px -5px 0;
+    width: calc(100% + 10px);
     float: left; }
-    .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity {
+    .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity {
       flex: 1 1 200px;
-      margin: 0 10px 5px;
-      height: 65px;
+      margin: 0 5px 5px;
+      height: 47px;
+      overflow: hidden;
       text-align: center;
       display: flex;
       align-items: flex-start;
-      justify-content: center;
-      border-bottom: 3px solid #f5f5f5; }
-      .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity.dml-Entity--spacer, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity.dml-Entity--spacer {
+      justify-content: center; }
+      .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity.dml-Entity--spacer {
         height: 0;
         border: none;
         padding: 0;
         margin-bottom: 0;
         margin-top: 0; }
-      .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-diff, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-barContainer, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-score, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-scoreBefore, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-scoreDiff, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-diff, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-barContainer, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-score, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-scoreBefore, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-scoreDiff {
+      .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-diff, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-barContainer, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-score, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-scoreBefore, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-scoreDiff {
         display: none; }
-      .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name {
+      .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name {
         padding-right: 0;
         width: 100%;
         text-align: left;
         font-size: 15px;
         line-height: 140%; }
-        .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name div, .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name div {
+        .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name div {
           width: 100%;
           white-space: normal;
           overflow: visible;
@@ -365,6 +362,8 @@ p span {
   float: left;
   margin-bottom: 12px;
   height: 20px; }
+  .dml-Medium-entities .dml-Entity[data-score^="<"] .dml-Entity-barContainer, .dml-Medium-entities .dml-Entity[data-score^="<"] .dml-Entity-diff, .dml-Medium-entities .dml-Entity[data-score^="<"] .dml-Entity-scoreBefore, .dml-Medium-entities .dml-Entity[data-score^="<"] .dml-Entity-scoreDiff, .dml-Medium-entities .dml-Entity[data-score^="<"] .dml-Entity-NameSearch {
+    opacity: 0; }
   .dml-Medium-entities .dml-Entity .dml-Entity-name {
     float: left;
     width: 43%;
@@ -637,14 +636,14 @@ p span {
   .dml-Medium-infos {
     justify-content: flex-start !important; }
 
-  .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity {
+  .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity {
     flex: 1 1 150px;
     height: 30px; }
-    .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name {
+    .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name {
       width: 100% !important;
       max-height: 20px;
       overflow: hidden; }
-      .dml-Entities-section[data-section="missing"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name div, .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name div {
+      .dml-Entities-section[data-section="only"] .dml-Entities-sectionList .dml-Entity .dml-Entity-name div {
         white-space: normal;
         overflow: visible;
         text-overflow: clip; }

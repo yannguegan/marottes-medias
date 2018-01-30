@@ -279,7 +279,8 @@ p {
 				}
 			}
 			.dml-Medium-details {
-				flex: 0 1 400px;
+				flex: 0 1 200px;
+				margin-left: auto;
 				text-align: center;
 				text-align: left;
 				.dml-Medium-storyCount {
@@ -360,6 +361,8 @@ $wth-entity-scoreDiff: 7%;
 	}
 }
 
+
+
 .dml-Entities-section {
 	margin: 0 0 50px;
 	width: 100%;
@@ -428,17 +431,7 @@ $wth-entity-scoreDiff: 7%;
 			margin-right: 50%;
 		}
 	}
-	&[data-section="missing"] {
-		.dml-Entity-name {
-			.dml-Entity-NameSearch {
-				display: none;
-			}
-			div {
-				padding-left: 0;
-			}
-		}
-	}
-	&[data-section="only"], &[data-section="missing"]  {
+	&[data-section="only"]  {
 		.dml-Entities-sectionTitle {
 			border-bottom: 1px solid $dml-lightGrey;
 			padding-bottom: 17px;
@@ -448,18 +441,19 @@ $wth-entity-scoreDiff: 7%;
 			flex-wrap: wrap;
 			justify-content: flex-start;
 			align-items: flex-start;
-			margin: 20px -10px 0;
-			width: calc(100% + 20px);
+			margin: 20px -5px 0;
+			width: calc(100% + 10px);
 			float: left;
 			.dml-Entity {
 				flex: 1 1 200px;
-				margin: 0 10px 5px;
-				height: 65px;
+				margin: 0 5px 5px;
+				height: 47px;
+				overflow: hidden;
 				text-align: center;
 				display: flex;
 				align-items: flex-start;
 				justify-content: center;
-				border-bottom: 3px solid $dml-veryLightGrey;
+				// border-bottom: 3px solid $dml-veryLightGrey;
 				// border: 1px solid black;
 				&.dml-Entity--spacer {
 					height: 0;
@@ -494,6 +488,12 @@ $wth-entity-scoreDiff: 7%;
 		float: left;
 		margin-bottom: 12px;
 		height: 20px;
+		&[data-score^="<"] {
+			// background-color: pink;
+			.dml-Entity-barContainer, .dml-Entity-diff, .dml-Entity-scoreBefore, .dml-Entity-scoreDiff, .dml-Entity-NameSearch {
+				opacity: 0;
+			}
+		}
 		.dml-Entity-name {
 			float: left;
 			width: $wth-entity-name;
@@ -890,7 +890,7 @@ $wth-entity-scoreDiff: 7%;
 	.dml-Medium-infos {
 		justify-content: flex-start !important;
 	}
-	.dml-Entities-section[data-section="missing"], .dml-Entities-section[data-section="only"] {
+	.dml-Entities-section[data-section="only"] {
 		.dml-Entities-sectionList {
 			.dml-Entity {
 				flex: 1 1 150px;

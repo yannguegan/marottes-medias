@@ -4,10 +4,10 @@
 var prodURL = 'none';
 
 // Main settings for entities list
-var nbMediasThreshold = 10
+var nbMediasThreshold = 4
 var diffScoreThreshold = 15
 var showOnlyThreshold = 0.6
-var showMissingThreshold = 0.5
+var showMissingThreshold = 0.6
 
 // Other 'global' variables here
 var random = parseInt(Math.random() * 1000);
@@ -81,8 +81,20 @@ function loadEntities() {
 
 		datavizContent = data
 
+		filteredData = {
+			'7days': {
+				'entities': []
+			}
+		}
+		for (entity of data['7days'].entities) {
+			if (entity['mediaCount'] >= nbMediasThreshold) {
+				filteredData['7days'].entities.push(entity)
+			} 
+
+		}
+
 		// Write entities list
-		useHBtemplate(data, 'entities')
+		useHBtemplate(filteredData, 'entities')
 
 		// Prepare search engine
 		prepareSearch(data['7days'].entities, 'entities')
@@ -157,13 +169,14 @@ function loadMedia(data) {
 	for (medium in data.media) {
 		for (entity of data.media[medium].entities) {
 			entity.category = 'none'
-
 			if (entity.spreadAverageType == 'more' && entity.spreadAverage > diffScoreThreshold) entity.category = 'more'
 
 			if (entity.spreadAverageType == 'less' && (0 - entity.spreadAverage) < (0 - diffScoreThreshold)) {
 				entity.category = 'less'
 			}
-			if (entity.mediaCount == 1 && entity.relevance >= showOnlyThreshold) entity.category = 'only'
+			if (entity.mediaCount == 1 && entity.relevance >= showOnlyThreshold) { 
+				entity.category = 'only'
+			}
 		}
 	}
 
@@ -176,18 +189,18 @@ function loadMedia(data) {
 			if (jQuery.inArray(code, entity.allMedia) == -1 && entity.mediaCount >= nbMediasThreshold && entity.averageRelevance >= showMissingThreshold) {
 				// console.log(entity.code)
 				mediumEntity = {
-					'relevance': 0,
-					'previousRelevance': 0,
-					'spreadRelevance': 0,
+					'relevance': '<' + datavizContent['7days'].analyse.relevanceThreshold,
+					'previousRelevance': '-',
+					'spreadRelevance': '-',
 					'searchURL': medium.searchURL,
 					'name': entity.name,
-					'previousRelevanceEvol': 0,
+					'previousRelevanceEvol': '-',
 					'code': entity.code,
-					'spreadAverageType': 0,
-					'spreadAverage': 0,
+					'spreadAverageType': 'less',
+					'spreadAverage': -100,
 					'mediaCount': entity.mediaCount,
 					'averageRelevance': entity.averageRelevance,
-					'category': 'missing'
+					'category': 'less'
 				}
 				data.media[code].entities.push(mediumEntity)
 			}
