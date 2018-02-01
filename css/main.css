@@ -66,20 +66,6 @@ p span {
     /* fade out, then shrink */
     transition: opacity .25s, font-size .5s .25s, margin .5s .25s, padding .5s .25s; }
 
-/*
-.dml-Accordion-content {
-	transition: all 0.5s ease-in-out;
-	max-height: 2000px;
-	&.dml-Accordion-content--closed {
-		max-height: 0 !important;
-		margin-top: 0 !important;
-		margin-bottom: 0 !important;
-		padding-top: 0 !important;
-		padding-bottom: 0 !important;
-		overflow: hidden;
-	}
-}
-*/
 .dml-Main {
   width: 100%;
   float: left; }
@@ -130,6 +116,11 @@ p span {
       color: black; }
       .dml-Tabs .dml-Tabs-tab.dml-Tabs-tab--selected:hover {
         color: black; }
+  .dml-Tabs .dml-Tabs-info {
+    margin-left: auto;
+    flex: 0 0 auto;
+    align-self: center;
+    font-style: italic; }
 
 .dml-Toggles {
   margin: 20px 10px 0 auto; }

@@ -99,22 +99,6 @@ p {
                 opacity .5s .15s;
 }
 
-/*
-.dml-Accordion-content {
-	transition: all 0.5s ease-in-out;
-	max-height: 2000px;
-	&.dml-Accordion-content--closed {
-		max-height: 0 !important;
-		margin-top: 0 !important;
-		margin-bottom: 0 !important;
-		padding-top: 0 !important;
-		padding-bottom: 0 !important;
-		overflow: hidden;
-	}
-}
-*/
-
-
 
 // Page elements
 
@@ -176,6 +160,12 @@ p {
 				color: black;
 			}
 		}
+	}
+	.dml-Tabs-info {
+		margin-left: auto;
+		flex: 0 0 auto;
+		align-self: center;
+		font-style: italic;
 	}
 }
 // Main toggles

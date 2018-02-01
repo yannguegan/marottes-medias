@@ -81,6 +81,14 @@ function loadEntities() {
 
 		datavizContent = data
 
+		// Write last analyse date		
+		for (medium in data['7days'].media) {
+			lastAnalyse = new Date(data['7days'].media[medium].analyse.lastAnalyse)
+
+    		$('.dml-js-LastAnalyse').html(lastAnalyse.toLocaleDateString('fr-FR',{'weekday':'long', 'month': 'long', 'day': 'numeric'}))
+    		break
+		}
+
 		filteredData = {
 			'7days': {
 				'entities': []
