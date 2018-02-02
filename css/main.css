@@ -588,6 +588,8 @@ p span {
   .dml-Tabs .dml-Tabs-tab {
     font-size: 14px;
     flex: 1 1 150px; }
+  .dml-Tabs .dml-Tabs-info {
+    display: none; }
 
   .dml-Toggles {
     margin: 9px 0 0 auto; }

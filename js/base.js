@@ -83,9 +83,9 @@ function useHBtemplate(data, template) {
       }
       if (target == 'dom_variable') {
         dom_target = $(this).attr('data-target-variable')
-        eval(dom_target).append(html)
+        eval(dom_target).prepend(html)
       } else {
-        $(target).append(html);
+        $(target).prepend(html);
       }
   }); 
 }

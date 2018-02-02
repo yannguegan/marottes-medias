@@ -104,6 +104,8 @@ function loadEntities() {
 		// Write entities list
 		useHBtemplate(filteredData, 'entities')
 
+		$('.dml-js-ScoreMin').html('<' + datavizContent['7days'].analyse.relevanceThreshold)
+
 		// Prepare search engine
 		prepareSearch(data['7days'].entities, 'entities')
 
@@ -255,7 +257,6 @@ function loadMedia(data) {
 	// Load entities for first medium
 	$firstMedium = $media.first()
 	firstMediumCode = $firstMedium.data('medium')
-	// console.log(firstMediumCode)
 	$accordion = $firstMedium.find('.dml-js-Accordion')
 	loadMediumEntities(firstMediumCode)
 	toggleAccordion($accordion)
@@ -399,19 +400,27 @@ function interactions() {
 		toggleAccordion($accordion)
 
 		section = $(this).parents('.dml-js-Section').data('section')
-
+		eventCode = ''
 		if (section == 'entities' && $(this).parents('.dml-js-Entity').hasClass('dml-Entity--mediaLoaded') == false) {
 
 			// Load entity media list
 			entityCode = $(this).parents('.dml-js-Entity').data('entity')
 			loadEntityMedia(entityCode)
+			eventCode = entityCode
 		}
 		if (section == 'media' && $(this).parents('.dml-js-Medium').hasClass('dml-Medium--entitiesLoaded') == false) {
 			mediumCode = $(this).parents('.dml-js-Medium').data('medium')
 
+			eventCode = mediumCode
 			// Load media entities list
 			loadMediumEntities(mediumCode)
 		}
+
+		// GA event
+		gtag('event', 'open_' + eventCode, {
+			'event_category': 'accordion_' + section,
+			'event_label': 'keyboard'
+		})
 	})
 
 	// Delaying search after user has finished typing
