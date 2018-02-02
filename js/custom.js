@@ -58,7 +58,7 @@ function prepareSearch(data, section) {
 	for (item of data) {
 		var doc = {
 			'code': item['code'],
-			'name': item['name']
+			'name': removeDiacritics(item['name'])
 		}
 		searchIndexes[section].addDoc(doc)
 	}
