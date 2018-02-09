@@ -58,6 +58,8 @@
         {{#each 7days.entities}}
         <div class="dml-Entity dml-js-Entity" data-entity="{{code}}">
             <div class="dml-Entity-info dml-js-Accordion dml-Accordion dml-Accordion--closed">
+                <div class="dml-Entity-rank">{{currentRank}}</div>
+                <div class="dml-Entity-rankDiff">{{{rankDiff}}}</div>
                 <div class="dml-Entity-name">{{name}}</div>
                 <div class="dml-Entity-details">
                     <div class="dml-Entity-mediaCount">{{mediaCount}}</div>

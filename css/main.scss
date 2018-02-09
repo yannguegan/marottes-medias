@@ -4,6 +4,7 @@ $dml-fontText: 'Roboto', sans-serif;
 $dml-veryLightGrey: #f5f5f5;
 $dml-lightGrey: #CCC;
 $dml-darkGrey: #444;
+$dml-mediumGrey: #888;
 $dml-green: #48c600;
 $dml-red: #f71b43;
 $dml-red-dml: #ce0005;
@@ -569,15 +570,33 @@ $wth-entity-scoreDiff: 7%;
 			width: 100%;
 			float: left;
 			display: flex;
-			justify-content: center;
+			justify-content: flex-start;
 			align-items: center;
 			border-bottom: 0px solid $dml-lightGrey;
 			padding: 15px 40px 15px 0;
 			.dml-Entity-name {
 				flex: 0 1 500px;
+				margin-right: 20px;
 				text-align: left;
 				font: bold 22px/130% $dml-fontText;
 				max-width: 95%;
+			}
+			.dml-Entity-rank {
+				font: bold 17px/130% $dml-fontText;
+				flex: 0 0 50px;
+				text-align: left;
+				&:after {
+					content: '.';
+					font-size: 17px;
+					vertical-align: 0px;
+					margin-left: 0px;
+				}
+			}
+			.dml-Entity-rankDiff {
+				font: normal 16px/130% $dml-fontText;
+				flex: 0 0 95px;
+				text-align: left;
+				color: $dml-mediumGrey;
 			}
 			.dml-Entity-details {
 				flex: 0 1 300px;
@@ -860,9 +879,23 @@ $wth-entity-scoreDiff: 7%;
 		}
 	}
 	.dml-Entities {
-		.dml-Entity-name {
-			font-size: 22px !important;
-			font-weight: normal !important;
+		.dml-Entity {
+			.dml-Entity-info {
+				.dml-Entity-name {
+					font-size: 20px;
+					font-weight: normal;
+				}
+				.dml-Entity-rank {
+					flex: 0 0 35px;
+					font-size: 16px;
+					font-weight: normal;
+				}
+				.dml-Entity-rankDiff {
+					flex: 0 0 75px;
+					font-size: 14px;
+					font-weight: normal;
+				}
+			}
 		}
 	}
 	.dml-Media {

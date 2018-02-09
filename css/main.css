@@ -423,15 +423,30 @@ p span {
       width: 100%;
       float: left;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       border-bottom: 0px solid #CCC;
       padding: 15px 40px 15px 0; }
       .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-name {
         flex: 0 1 500px;
+        margin-right: 20px;
         text-align: left;
         font: bold 22px/130% "Roboto", sans-serif;
         max-width: 95%; }
+      .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-rank {
+        font: bold 17px/130% "Roboto", sans-serif;
+        flex: 0 0 50px;
+        text-align: left; }
+        .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-rank:after {
+          content: '.';
+          font-size: 17px;
+          vertical-align: 0px;
+          margin-left: 0px; }
+      .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-rankDiff {
+        font: normal 16px/130% "Roboto", sans-serif;
+        flex: 0 0 95px;
+        text-align: left;
+        color: #888; }
       .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-details {
         flex: 0 1 300px;
         padding: 0 20px; }
@@ -610,9 +625,17 @@ p span {
       padding: 8px 20px 10px 17px;
       background-position: 95% 10px; }
 
-  .dml-Entities .dml-Entity-name {
-    font-size: 22px !important;
-    font-weight: normal !important; }
+  .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-name {
+    font-size: 20px;
+    font-weight: normal; }
+  .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-rank {
+    flex: 0 0 35px;
+    font-size: 16px;
+    font-weight: normal; }
+  .dml-Entities .dml-Entity .dml-Entity-info .dml-Entity-rankDiff {
+    flex: 0 0 75px;
+    font-size: 14px;
+    font-weight: normal; }
 
   .dml-Media .dml-Medium-name {
     font-size: 22px !important;
