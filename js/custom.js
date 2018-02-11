@@ -6,8 +6,8 @@ var prodURL = 'none';
 // Main settings for entities list
 var nbMediasThreshold = 4
 var diffScoreThreshold = 15
-var showOnlyThreshold = 0.6
-var showMissingThreshold = 0.6
+var showOnlyThreshold = 0.45
+var showMissingThreshold = 0.55
 
 // Other 'global' variables here
 var random = parseInt(Math.random() * 1000);
