@@ -4,7 +4,7 @@
 
 // Constants
 const testEntity = 'donaldtrump'
-const serverUrl = 'http://yannguegan.pythonanywhere.com/marottes/'
+const serverUrl = 'https://yannguegan.pythonanywhere.com/marottes/'
 const colors = {
 	'min': 'rgba(247, 27, 67, 0.8)',
 	'max': 'rgba(72, 198, 0, 0.8)',
@@ -287,7 +287,7 @@ function hideLoader() {
 }
 $(document).ready(function() {
 	loadLoader()
-	urlVars = getUrlVars()
+	urlVars = getUrlVars('self')
 	let entity = testEntity
 	if ('entity' in urlVars) {
 		entity = urlVars.entity

@@ -34,14 +34,26 @@ function inIframe() {
 }
 
 // Get URL parameters (location bar)
-function getUrlVars() { 
-    var vars = [],
-        hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
+function getUrlVars(target) {
+    if (target == 'parent') {
+      var vars = [],
+          hash;
+      var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
+      for (var i = 0; i < hashes.length; i++) {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+      } 
+    } else {
+      var vars = [],
+          hash;
+      var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+      for (var i = 0; i < hashes.length; i++) {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+      } 
+
     }
     return vars;
 }
@@ -234,6 +246,30 @@ function sortElementsInPlaceNum(container, elements, data, order) {
   }
 })()
 
+// Change URL parameter
+self.setParameter = function (url, param, paramVal){
+  // http://stackoverflow.com/a/10997390/2391566
+  var parts = url.split('?');
+  var baseUrl = parts[0];
+  var oldQueryString = parts[1];
+  var newParameters = [];
+  if (oldQueryString) {
+    var oldParameters = oldQueryString.split('&');
+    for (var i = 0; i < oldParameters.length; i++) {
+      if(oldParameters[i].split('=')[0] != param) {
+        newParameters.push(oldParameters[i]);
+      }
+    }
+  }
+  if (paramVal !== '' && paramVal !== null && typeof paramVal !== 'undefined') {
+    newParameters.push(param + '=' + encodeURI(paramVal));
+  }
+  if (newParameters.length > 0) {
+    return baseUrl + '?' + newParameters.join('&');
+  } else {
+    return baseUrl;
+  }
+}
 
 // Write something in parent DOM
 function writeInParent(selector) {

@@ -113,16 +113,36 @@ function loadEntities() {
 		$accordions = $('.dml-js-Accordion')
 		$entities = $('.dml-js-Entity')
 
-		// Load media for first entity
-		$firstEntity = $entities.first()
-		firstEntityCode = $firstEntity.data('entity')
-		$accordion = $firstEntity.find('.dml-js-Accordion')
+		// Load media for initial entity 
+		firstEntityCode = $entities.first().data('entity')
+		initialEntity = firstEntityCode
+		if ('entity' in URLparameters) {
+			$entityInUrl = $entities.filter('[data-entity="' + URLparameters.entity + '"]')
+			if ($entityInUrl.length > 0) {
+				initialEntity = URLparameters.entity
+			}
+		} 
+		loadEntityMedia(initialEntity)
+		$initialEntity = $entities.filter('[data-entity="' + initialEntity + '"]')
+		$accordion = $initialEntity.find('.dml-js-Accordion')
 		toggleAccordion($accordion)
-		loadEntityMedia(firstEntityCode)
+		
 
 		// Ready to show content
 		showTimespan('7days')
 		showSection('entities')
+
+		// Scroll to entity in URL
+		if (initialEntity != firstEntityCode) {
+			let pos = $initialEntity.offset().top
+			pos += getIframePosition()
+			setTimeout(function() {
+				window.parent.jQuery('html, body').animate({
+	       			 scrollTop: pos - 350
+	   			 }, 500);
+			},500)
+		}
+
 		interactions()
 		setTimeout(function() {
 			window.parent.jQuery('.dml-js-Dataviz').css('opacity', 1)
@@ -428,6 +448,15 @@ function interactions() {
 			loadMediumEntities(mediumCode)
 		}
 
+		// Change URL
+		if (section == 'entities' && $(this).hasClass('dml-Accordion--closed') == false) {
+			console.log('clic')
+			let entityCode = $(this).parents('.dml-js-Entity').data('entity')
+			let currentUrl = window.parent.location.href
+			let newUrl = setParameter(currentUrl, 'entity', entityCode)
+			window.top.history.pushState('',window.top.title,newUrl)
+		}
+
 		// GA event
 		gtag('event', 'open_' + eventCode, {
 			'event_category': 'accordion_' + section,
@@ -535,7 +564,7 @@ $(document).ready(function() {
 
 	// Redirecting if page is not loaded inside iframe
   	if ((inIframe() != true) && (prodURL != 'none') ) window.open(prodURL, '_self');
-	URLparameters = getUrlVars()
+	URLparameters = getUrlVars('parent')
 
 	// DOM variables
 	$sections = $('.dml-js-Section')

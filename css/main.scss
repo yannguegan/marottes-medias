@@ -851,6 +851,12 @@ $wth-entity-scoreDiff: 7%;
 // Add-on for mobile screens
 //
 @media only screen and (max-width: 600px) {
+	.dml-rwdDesktopOnly {
+		display: none;
+	}
+	.dml-SectionTitle[data-section="current"] {
+		margin-top: 10px;
+	}
 	.dml-Chart {
 		display: none;
 
