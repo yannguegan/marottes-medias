@@ -30,7 +30,6 @@ var timespans = [
 
 var times = ['previous', 'current']
 var searchIndexes = {}
-
 var $sections = []
 var $toggles = []
 var $timespans = []
@@ -279,6 +278,16 @@ function loadEntityMedia(code) {
 	
 	useHBtemplate(data, 'entity_media')
 	$entity.addClass('dml-Entity--mediaLoaded')
+
+	// Load graph
+	if (smallDisplay == false) {
+		file = 'graph.html?entity=' + code
+		$entity.find('.dml-js-Graph').html('' +
+		'<iframe class="dml-Graph-iframe dml-js-GraphIframe" style="width: 1px; min-width: 100%; height: 75px;" frameborder="no scrolling="no" src="' + file + '"></iframe>').removeClass('dml--hidden')
+		$graphIframe = $entity.find('.dml-js-GraphIframe')
+		$graphIframe.iFrameResize()
+	}
+
 }
 function loadMediumEntities(code) {
 
@@ -392,6 +401,8 @@ function interactions() {
 	})
 
 	// Click on a Accordion
+
+
 	$accordions.off('click')
 	$accordions.on('click', function() {
 
@@ -406,7 +417,8 @@ function interactions() {
 			// Load entity media list
 			entityCode = $(this).parents('.dml-js-Entity').data('entity')
 			loadEntityMedia(entityCode)
-			eventCode = entityCode
+			eventCode = entityCode			
+
 		}
 		if (section == 'media' && $(this).parents('.dml-js-Medium').hasClass('dml-Medium--entitiesLoaded') == false) {
 			mediumCode = $(this).parents('.dml-js-Medium').data('medium')

@@ -555,6 +555,18 @@ p span {
     .dml-Entity-media .dml-Medium.dml-Medium--less .dml-Medium-diff:before {
       content: "-"; }
 
+.dml-Graph {
+  margin: 15px 0 30px; }
+
+.dml-SectionTitle {
+  font: 20px "Roboto", sans-serif;
+  text-align: center;
+  margin: 20px 0;
+  background-color: #f5f5f5;
+  padding: 10px 0; }
+  .dml-SectionTitle[data-section="current"] {
+    margin-top: 80px; }
+
 @media only screen and (max-width: 800px) {
   .dml-Medium-lastAnalyse {
     display: none; } }
@@ -600,6 +612,9 @@ p span {
   .dml-Medium-scoreBefore {
     display: none; } }
 @media only screen and (max-width: 600px) {
+  .dml-Chart {
+    display: none; }
+
   .dml-Tabs .dml-Tabs-tab {
     font-size: 14px;
     flex: 1 1 150px; }

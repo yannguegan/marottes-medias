@@ -1,0 +1,99 @@
+@charset "UTF-8";
+$text: 'Roboto', sans-serif;
+$veryLightGrey: #e3e3e3;
+$lightGrey: #CCC;
+$darkGrey: #444;
+$mediumGrey: #888;
+$green: #48c600;
+$red: #f71b43;
+$red-dml: #ce0005;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+body {
+	font: 12px/140% $text;
+	margin: 0;
+	padding: 0;
+}
+img {
+	display: block;
+}
+.dml-Loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.dml--hidden {
+	display: none;
+}
+.dml--transparent {
+	opacity: 0;
+}
+.dml-Title {
+	text-align: center;
+	font: bold 24px $text;
+	margin-bottom: 23px;
+}
+.dml-ChartContainer {
+	margin: 0 0 30px;
+}
+.dml-Main {
+	// transition: opacity 0.5s linear;
+	opacity: 0;
+	max-height: 75px;
+	oveflow: hidden;
+	&[data-loaded="oui"] {
+		opacity: 1;
+		max-height: unset;
+	}
+}
+.dml-Captions {
+	display: flex;
+	flex-wrap: wrap;
+	width: calc(100% + 10px);
+	margin: 0 -5px;
+	justify-content: flex-start;
+	.dml-Caption {
+		font-size: 13px;
+		margin: 0 5px 10px;
+		flex: 1 1 140px;
+		display: flex;
+		align-items: center;
+		border: 1px solid $veryLightGrey;
+		cursor: pointer;
+		.dml-Caption-img {
+			flex: 0 0 30px;
+			height: 100%;
+			background-color: $veryLightGrey;
+			padding: 7px;
+			img {
+				width: 100%;
+				margin: auto;
+			}
+		}
+		.dml-Caption-txt {
+			padding-left: 10px;
+		}
+		&.dml-Caption--active {
+			background-color: #333;
+			color: white;
+			border: none;
+			&:hover {
+				background-color: $mediumGrey;	
+			}
+		}
+		&:not(.dml-Caption--filler):hover {
+			background-color: $mediumGrey;
+			color: white;
+		}
+		&.dml-Caption--filler {
+			cursor: default;
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-top: 0;
+			padding-bottom: 0;
+			border-width: 0;
+		}
+	}
+}

@@ -749,20 +749,19 @@ $wth-entity-scoreDiff: 7%;
 	}
 }
 
+.dml-Graph {
+	margin: 15px 0 30px;
+}
 
 
-
-
-//
-// Add-on for small desktop screens
-//
-
-
-
-
-@media only screen and (max-width: 800px) {
-	.dml-Medium-lastAnalyse {
-		display: none;
+.dml-SectionTitle {
+	font: 20px $dml-fontText;
+	text-align: center;
+	margin: 20px 0;
+	background-color: $dml-veryLightGrey;
+	padding: 10px 0;
+	&[data-section="current"] {
+		margin-top: 80px;
 	}
 }
 
@@ -770,6 +769,14 @@ $wth-entity-scoreDiff: 7%;
 
 
 
+//
+// Add-on for small desktop screens
+//
+@media only screen and (max-width: 800px) {
+	.dml-Medium-lastAnalyse {
+		display: none;
+	}
+}
 @media only screen and (max-width: 700px) {
 	.dml-Medium-entities {
 		.dml-Entities-sectionHeaders {
@@ -844,6 +851,10 @@ $wth-entity-scoreDiff: 7%;
 // Add-on for mobile screens
 //
 @media only screen and (max-width: 600px) {
+	.dml-Chart {
+		display: none;
+
+	}
 	.dml-Tabs {
 		.dml-Tabs-tab {
 			font-size: 14px;
