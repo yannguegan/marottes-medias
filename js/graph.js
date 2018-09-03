@@ -41,22 +41,19 @@ function showMedium(medium, onOff, context) {
 
 	if (onOff == 'on') {
 		if (context == 'clicked' || context == 'initial') {
-
 			let $caption = $captions.filter('[data-medium="' + medium + '"]')
 			$caption.addClass('dml-Caption--active')
 			let $actives = $('.dml-js-Caption.dml-Caption--active')
-
 			for (i=0; i < $actives.length; i++) {
 				$active = $actives.eq(i)
 				let activeCode = $active.data('medium') 
 				let activeName = _.find(chart.data.info.all,{'code': activeCode}).name
 				let activeMedium = _.find(chart.data.datasets,{'label': activeName})
 				activeMedium.borderColor = colors.clicked[i]
+				activeMedium.pointRadius = 1
+				activeMedium.pointBackgroundColor = colors.clicked[i]
 				let $activeCaption = $captions.filter('[data-medium="' + activeCode + '"]').css('background-color', colors.clicked[i])
-
 			}
-			// console.log(nbActive, '<<< nbActive')
-
 		} else {
 			mediumConfig.borderColor = colors[context]
 		}
@@ -65,6 +62,8 @@ function showMedium(medium, onOff, context) {
 	if (onOff == 'off') {
 		mediumConfig.borderWidth = widths.default
 		mediumConfig.borderColor = colors.default
+		mediumConfig.pointBackgroundColor = colors.default
+		mediumConfig.pointRadius = 0
 		$captions.filter('[data-medium="' + medium + '"]').css('background-color', '').removeClass('dml-Caption--active')
 	}
 
@@ -80,7 +79,6 @@ function showMedium(medium, onOff, context) {
 			if (set.label != mediumName) keepers.push(set)
 		}	
 	}
-
 	if (onOff == 'off') {
 		pushCurrent()
 		pushOthers()
@@ -89,11 +87,8 @@ function showMedium(medium, onOff, context) {
 		pushOthers()
 		pushCurrent()
 	}
-
 	chart.data.datasets = keepers
-
 	chart.update()		
-
 }
 
 function interactions() {
@@ -108,7 +103,6 @@ function interactions() {
 				showMedium(medium, 'on', 'clicked')
 			}
 		}
-		
 		
 	})
 	$captions.off('mouseenter')
@@ -138,11 +132,24 @@ function finishInit() {
 	$('.dml-js-EntityName').html(chart.data.info.entity.name)
 
 	// Show first 3
-	for (i=1; i<4; i++) {
-		let mediumName = chart.data.datasets[i].label
+
+	/*
+	if (chart.data.datasets.length >= 4) {
+		for (i=1; i<4; i++) {
+			let mediumName = chart.data.datasets[i].label
+			let mediumCode = _.find(chart.data.info.all, { 'name' : mediumName}).code
+			showMedium(mediumCode,'on', 'initial')
+		}
+	} else {
+		let mediumName = chart.data.datasets[1].label
 		let mediumCode = _.find(chart.data.info.all, { 'name' : mediumName}).code
 		showMedium(mediumCode,'on', 'initial')
 	}
+	*/
+
+	let mediumName = chart.data.datasets[1].label
+	let mediumCode = _.find(chart.data.info.all, { 'name' : mediumName}).code
+	showMedium(mediumCode,'on', 'initial')
 
 	interactions()
 	hideLoader()
@@ -181,6 +188,7 @@ function loadData(entity) {
 			dataset.backgroundColor = 'rgba(0,0,0,0)'
 			dataset.borderColor = colors.default
 			dataset.borderWidth = widths.default
+			dataset.pointBorderWidth = 0
 			dataset.pointRadius = 0
 			dataset.spanGaps = false
 			if (highlights.indexOf(dataset.label) > -1) {
@@ -192,17 +200,6 @@ function loadData(entity) {
 				dataset.borderColor = colors.average
 				dataset.borderDash = [10,5]
 			}
-
-			/*
-			if (dataset.label == 'dayAverageMax') {
-				dataset.label = 'Moyenne haute'
-				dataset.borderColor = colors.max
-			}
-			if (dataset.label == 'dayAverageMin') {
-				dataset.label = 'Moyenne basse'
-				dataset.borderColor = colors.min
-			}
-			*/
 			for (xy of dataset['data']) {
 				if (xy.x == '') xy.x = null
 				if (xy.y == '') xy.y = null
@@ -213,57 +210,61 @@ function loadData(entity) {
 		if (context == 'dev') console.log(data)
 
 		let ctx = $('.dml-js-Chart')
-		chart = new Chart(ctx, {
-		    type: 'line',
-		    data: data,
-		    options: {
-		    	layout: {
-		    		padding: 0
-		    	},
-		    	tooltips: {
-		    		enabled: false,
-		    	},
-		    	legend: {
-		    		display: false
-		    	},
-		    	tooltips: {
-		    		enabled: false
-		    	},
-		        scales: {
-		            yAxes: [{
-		                ticks: {
-		                    min: 0.3,
-		                    max:1,
-		                    fontFamily: 'Roboto',
-		                    fontSize: 13
-		                }
-		            }],
-		            xAxes: [{
-		            	type: 'time',
-		            	time: {
-		            		unit: 'day',
-		            		displayFormats: {
-		            			day: 'D MMM'
-		            		} 
-		            	},
-		            	ticks: {
-		            		fontFamily: 'Roboto',
-		                    fontSize: 15,
-		                    padding: 7
-		            	}
-		            }]
-		        }
-		    }
-		})
 
-		setTimeout(function() {
+		if (data.datasets.length >= 2) {
+			chart = new Chart(ctx, {
+			    type: 'line',
+			    data: data,
+			    options: {
+			    	layout: {
+			    		padding: 0
+			    	},
+			    	tooltips: {
+			    		enabled: false,
+			    	},
+			    	legend: {
+			    		display: false
+			    	},
+			    	tooltips: {
+			    		enabled: false
+			    	},
+			        scales: {
+			            yAxes: [{
+			                ticks: {
+			                    min: 0.3,
+			                    max:1,
+			                    fontFamily: 'Roboto',
+			                    fontSize: 13
+			                }
+			            }],
+			            xAxes: [{
+			            	type: 'time',
+			            	time: {
+			            		unit: 'day',
+			            		displayFormats: {
+			            			day: 'D MMM'
+			            		} 
+			            	},
+			            	ticks: {
+			            		fontFamily: 'Roboto',
+			                    fontSize: 15,
+			                    padding: 7
+			            	}
+			            }]
+			        }
+			    }
+			})
 
-			window.parent.jQuery('.dml-js-Graph').addClass('dml-Graph--loaded')
-		}, 300)
+			setTimeout(function() {
+				window.parent.jQuery('.dml-js-Graph').addClass('dml-Graph--loaded')
+			}, 300)
 
-		// Add custom captions
-		useHBtemplate(data.info.all, 'caption')
-		finishInit()
+			// Add custom captions
+			useHBtemplate(data.info.all, 'caption')
+			finishInit()
+		} else {
+			window.parent.jQuery('.dml-SectionTitle[data-section="evolution"]').addClass('dml--hidden')
+		}		
 	})
 	dataLoad.fail(function( data ) {
 		console.log('Failed to load', rqPath)
