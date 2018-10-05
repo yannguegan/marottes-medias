@@ -19,6 +19,13 @@ body {
 img {
 	display: block;
 }
+@mixin mask-gradient() {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+77,ffffff+100&0+0,1+77,1+100 */
+	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 77%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 77%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 77%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
 .dml-Loader {
 	position: absolute;
 	top: 0;
@@ -37,6 +44,11 @@ img {
 }
 .dml-ChartContainer {
 	margin: 0 0 30px;
+	position: relative;
+	margin: auto;
+	width: 100vw;
+	height: 400px;
+	margin-bottom: 40px;
 }
 .dml-Main {
 	// transition: opacity 0.5s linear;
@@ -48,22 +60,52 @@ img {
 		max-height: unset;
 	}
 }
+.ctx-Mask {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	height: 110px;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	@include mask-gradient();
+	.ctx-ReadMore {
+		cursor: pointer;
+		text-decoration: underline;
+		margin-top: 20px;
+	}
+}
 .dml-Captions {
 	display: flex;
 	flex-wrap: wrap;
 	width: calc(100% + 10px);
 	margin: 0 -5px;
-	justify-content: flex-start;
+	// justify-content: flex-start;
+	flex-direction: row;
 	.dml-Caption {
 		font-size: 13px;
 		margin: 0 5px 10px;
-		flex: 1 1 140px;
+		flex: 1 1 145px;
+		width: 140px;
 		display: flex;
 		align-items: center;
 		border: 1px solid $veryLightGrey;
 		cursor: pointer;
+		.dml-Caption-rank {
+			flex: 0 0 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: $mediumGrey;
+			font-size: 11px;
+			border-right: 1px solid $mediumGrey;
+			// background-color: $veryLightGrey;
+		}
 		.dml-Caption-img {
 			flex: 0 0 30px;
+			margin-left: auto;
 			height: 100%;
 			background-color: $veryLightGrey;
 			padding: 7px;
@@ -73,7 +115,8 @@ img {
 			}
 		}
 		.dml-Caption-txt {
-			padding-left: 10px;
+			padding: 0 5px 0;
+			line-height: 100%;
 		}
 		&.dml-Caption--active {
 			background-color: #333;
@@ -95,5 +138,16 @@ img {
 			padding-bottom: 0;
 			border-width: 0;
 		}
+	}
+}
+
+
+@media only screen and (max-width: 600px) {
+	.dml-ChartContainer {
+		height: 400px;
+	}
+	.dml-Captions {
+		max-height: 200px;
+		overflow: hidden;
 	}
 }

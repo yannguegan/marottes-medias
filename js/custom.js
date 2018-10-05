@@ -300,13 +300,13 @@ function loadEntityMedia(code) {
 	$entity.addClass('dml-Entity--mediaLoaded')
 
 	// Load graph
-	if (smallDisplay == false) {
+	// if (smallDisplay == false) {
 		file = 'graph.html?entity=' + code
 		$entity.find('.dml-js-Graph').html('' +
 		'<iframe class="dml-Graph-iframe dml-js-GraphIframe" style="width: 1px; min-width: 100%; height: 75px;" frameborder="no scrolling="no" src="' + file + '"></iframe>').removeClass('dml--hidden')
 		$graphIframe = $entity.find('.dml-js-GraphIframe')
 		$graphIframe.iFrameResize()
-	}
+	// }
 
 }
 function loadMediumEntities(code) {

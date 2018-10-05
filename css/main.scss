@@ -199,14 +199,55 @@ p {
 		}
 	}
 }
-.dml-Sections {
-	float: left;
-	width: 100%;
-	.dml-Section {
-		float: left;
-		width: 100%;
+
+.dml-SectionWTF {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-bottom: 15px;
+	.dml-WTF-box {
+		flex: 0 1 100px;
+		padding: 5px 10px;
+		border-top: 1px solid $dml-darkGrey;
+		border-bottom: 1px solid $dml-darkGrey;
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		font: bold 13px/140% $dml-fontText;
+	}
+	.dml-WTF-description {
+		flex: 1 1 750px;
+		padding-left: 20px;
+		font: normal 13px/140% $dml-fontText;
+		margin-bottom: 20px;
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			li {
+				margin: 0 0 3px 0;
+				position: relative;
+				padding-left: 14px;
+				&:before {
+					content: '>';
+					color: $dml-red-dml;
+					position: absolute;
+					top: 0;
+					left: 0;
+					
+				}
+			}
+		}
+		a {
+			display: block;
+			text-align: right;
+			color: $dml-red-dml;
+		}
 	}
 }
+
 .dml-SearchContainer {
 	width: 100%;
 	float: left;
@@ -851,14 +892,19 @@ $wth-entity-scoreDiff: 7%;
 // Add-on for mobile screens
 //
 @media only screen and (max-width: 600px) {
-	.dml-rwdDesktopOnly {
-		display: none;
+	.dml--rwdDesktopOnly {
+		display: none !important;
+	}
+	.dml-SectionWTF {
+		.dml-WTF-description {
+			padding: 0;
+		}
 	}
 	.dml-SectionTitle[data-section="current"] {
 		margin-top: 10px;
 	}
 	.dml-Chart {
-		display: none;
+	//	display: none;
 
 	}
 	.dml-Tabs {

@@ -33,6 +33,8 @@ let $captions = []
 let chart = {}
 let context = 'prod'
 if (location.hostname === 'localhost') context = 'dev'
+let smallDisplay = false;
+if (window.innerWidth < 600) smallDisplay = true;
 
 function showMedium(medium, onOff, context) {
 	mediumName = _.find(chart.data.info.all,{'code': medium}).name
@@ -122,6 +124,8 @@ function interactions() {
 }
 function finishInit() {
 
+	if (smallDisplay) manageOverflow('.dml-js-Captions', 'Voir tous les médias')
+
 	// Add fillers
 	for (i=0 ; i<10 ; i++) {
 		$('.dml-js-Captions').append('<div class="dml-Caption dml-Caption--filler"></div>')
@@ -206,9 +210,6 @@ function loadData(entity) {
 			}
 		}
 
-
-		if (context == 'dev') console.log(data)
-
 		let ctx = $('.dml-js-Chart')
 
 		if (data.datasets.length >= 2) {
@@ -216,6 +217,8 @@ function loadData(entity) {
 			    type: 'line',
 			    data: data,
 			    options: {
+			    	responsive: true,
+			    	maintainAspectRatio: false,
 			    	layout: {
 			    		padding: 0
 			    	},
@@ -260,6 +263,12 @@ function loadData(entity) {
 			}, 300)
 
 			// Add custom captions
+			if (context == 'dev') console.log(data)
+			let rank = 1
+			for (medium of data.info.all) {
+				medium['rank'] = rank
+				rank += 1
+			}
 			useHBtemplate(data.info.all, 'caption')
 			finishInit()
 		} else {
@@ -285,6 +294,39 @@ function hideLoader() {
 	$('.dml-js-Loader').addClass('dml--hidden')
 	$('.dml-js-Main').attr('data-loaded', 'oui')
 
+}
+
+// Check if element is overflowing
+function checkOverflow(el) {
+	var overflowOffset = -10
+	var curOverflow = el.style.overflow
+
+	if ( !curOverflow || curOverflow === "visible" )
+		el.style.overflow = "hidden";
+
+	var isOverflowing = el.clientWidth < el.scrollWidth
+	|| el.clientHeight < (el.scrollHeight + overflowOffset)
+
+	el.style.overflow = curOverflow
+	return isOverflowing
+}
+
+// Manage element overflow
+function manageOverflow(selector, wording) {
+	$(selector).each(function() {
+		if (checkOverflow(this)) {
+			let $this = $(this)
+			let $mask = $('<div class="ctx-Mask"></div>')
+			let $showMore = $('<div class="ctx-ShowMore">' + wording + '</div>')
+			$showMore.click(function() {
+				$this.css('max-height', 'none')
+				$mask.hide(0)
+			})
+			$mask.append($showMore)
+			$(this).append($mask)
+
+		}
+	});
 }
 $(document).ready(function() {
 	loadLoader()

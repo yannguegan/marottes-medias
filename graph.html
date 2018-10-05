@@ -37,11 +37,16 @@
         <script type="text/x-handlebars-template" data-template="caption" data-target=".dml-js-Captions">
             {{#each this}}
                 <div class="dml-Caption dml-js-Caption" data-medium="{{code}}">
-                    <div class="dml-Caption-img">
-                        <img src="img/media/{{code}}.ico" alt="Logo {{name}}">
+                    <div class="dml-Caption-rank">
+                        <div>
+                            {{rank}}
+                        </div>
                     </div>
                     <div class="dml-Caption-txt">
                         {{name}}
+                    </div>
+                    <div class="dml-Caption-img">
+                        <img src="img/media/{{code}}.ico" alt="Logo {{name}}">
                     </div>
                 </div>
             {{/each}}
